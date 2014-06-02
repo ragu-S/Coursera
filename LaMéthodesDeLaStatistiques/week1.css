@@ -1,0 +1,34 @@
+/* Une Semaine CSS */
+body {
+	/*display: inline-table;*/
+}
+div.histogram {
+	margin: 150px auto;
+	display: inline;
+}
+
+table.histoTable {
+	border: solid;
+	border-collapse: collapse;
+	margin: 2px auto;
+	float: left;
+
+}
+
+table.histoTable td {
+	border: solid 1px;
+	border-collapse: collapse;
+	width: 80px;
+	height: 80px;
+	text-align: center;
+}
+
+div.colorogram {
+	margin: 0px 15px;
+	background-color: red;
+	width: 40px;
+	height: 250px;
+	float: left;
+	/*gradient: ;*/m@rs0n1y
+	/*display: inline;*/
+}
