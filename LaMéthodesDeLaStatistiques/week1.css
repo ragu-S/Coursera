@@ -12,7 +12,6 @@ table.histoTable {
 	border-collapse: collapse;
 	margin: 2px auto;
 	float: left;
-
 }
 
 table.histoTable td {
@@ -23,12 +22,27 @@ table.histoTable td {
 	text-align: center;
 }
 
+table.stats, table.stats td {
+	border: solid;
+	border-collapse: collapse;
+	margin: 2px auto;
+	text-align: center;
+	/*float: left;*/
+}
+
+table.stats {
+	
+	/*background-image: linear-gradient(top, #F8C, #05C);*/
+}
+
 div.colorogram {
 	margin: 0px 15px;
-	background-color: red;
+	/*background: linear-gradient(to top, #000000 10%,#800000 30%,#FF0000 60%);*/
+	/*background: linear-gradient(to bottom, rgba(0,0,0, 0.9), rgba(255,0,0,0.8)); /* Standard syntax (must be last) */
 	width: 40px;
 	height: 250px;
 	float: left;
-	/*gradient: ;*/m@rs0n1y
+	/*gradient: ;*/
 	/*display: inline;*/
 }
+
