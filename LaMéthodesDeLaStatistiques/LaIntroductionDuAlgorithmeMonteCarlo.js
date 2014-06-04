@@ -4,7 +4,7 @@
 // 	return this;
 // };
 
-var MAX_RUNS = 2000;
+var MAX_RUNS = 10;
 
 var probabilityTable = [];
 var tableau = [];
@@ -13,43 +13,12 @@ for (var i = 0; i < 9; i++)
 	probabilityTable.push(0);
 
 var tableauProb;
+
 var voisin = [[1,3,0,0], [2,4,0,1], [2,5,1,2], 
 			  [4,6,3,0], [5,7,3,1], [5,8,4,2],
 			  [7,6,6,3], [8,7,6,4], [8,8,7,5]];
 
-
-function calculer(nomEssais) {
-	var hits = 0;
-	var x = 0;
-	var y = 0;
-	for(var i = 0; i < nomEssais; i++) {
-		x = (Math.random() * 2) - 1;
-		y = (Math.random() * 2) - 1;
-		
-		if((Math.abs(Math.pow(x, 2) / Math.pow(y, 2))) < Math.PI) {
-			hits++;
-		}
-	}
-
-	return 4 * (hits/nomEssais);
-}
-
-function calculerTableau() {
-	t_max = 4;
-	site = 1;
-	t = 0;
-
-	for(var i = 0; i < MAX_RUNS; i++) {
-		t = 0;
-		while(t < t_max) {
-			t++; 
-			site = voisin[site][Math.round((Math.random() * 3))];
-		}
-
-		probabilityTable[site]++;
-	}
-
-}
+//var colorogram = document.getElementById("colorGraphique");
 
 window.onload = function() {
 	var temp;
@@ -59,12 +28,7 @@ window.onload = function() {
 
 	calculerTableau();
 	faireUneTableau();
-
-	var colorogram = document.getElementsByClassName("colorogram")[0];
-
-	leRatioNoir = 0;
-	leRatioRouge = 0;
-	console.dir(colorogram.style.background = "linear-gradient(to bottom, rgba(0,0,0, 0.9), rgba(255,0,0,0.8))");
+	
 	//console.dir(colorogram);
 	tableau.push(['Value', 'Hits']);
  	for(var i = 0; i < probabilityTable.length; i++)
@@ -72,6 +36,102 @@ window.onload = function() {
 
 	drawChartLine();
 	drawChartBubble();
+	//jouerDeCaillou();
+}
+
+// function calculer(nomEssais) {
+// 	var hits = 0;
+// 	var x = 0;
+// 	var y = 0;
+// 	for(var i = 0; i < nomEssais; i++) {
+// 		x = (Math.random() * 2) - 1;
+// 		y = (Math.random() * 2) - 1;
+		
+// 		if((Math.abs(Math.pow(x, 2) / Math.pow(y, 2))) < Math.PI) {
+// 			hits++;
+// 		}
+// 	}
+
+// 	return 4 * (hits/nomEssais);
+// }
+
+function jouerDeCaillou(noir, rouge) {
+	//var colorogram = document.getElementById("colorGraphique");
+	var histoTable = document.getElementsByClassName("nombre");
+	var tdRefs = document.createElement("table");
+	tdRefs.className = "histoColorRange";
+	console.log(histoTable.length);
+	
+	// for(var i = 0; i < histoTable.length; i++) {
+	// 	console.log(histoTable[i].innerHTML);
+	// }
+	
+	for(var i = 10; i > 0; i--) {
+		var rangée = document.createElement("tr");
+		var leCellue;
+
+		rangée.style.height = "26px";
+
+		if(i == 10) {
+			leCellue = document.createElement("td");
+			leCellue.style.background = "linear-gradient(white, yellow, orange, red, black)";
+			leCellue.setAttribute("rowspan", "10"); 
+			leCellue.style.width = "30px";
+			rangée.appendChild(leCellue);
+		}
+		
+		// //if(i = )
+		// leCellue = document.createElement("td");
+		// leCellue.style.width = "30px";
+		// //leCellue.style.border = "1px solid black";
+		// leCellue.style.background = "linear-gradient(white, yellow)"
+		// //leCellue.style.height = "30px";
+
+		leCellue = document.createElement("td");
+		leCellue.innerHTML = eval(i/10);
+		rangée.appendChild(leCellue);
+
+		tdRefs.appendChild(rangée);
+	}
+
+	// 255, 255, 255 blanc
+	// 255, 255, 0 jaune
+	// 255, 153, 0 orange
+	// 255, 0, 0 rouge
+	// 0, 0, 0 black
+
+	document.getElementsByClassName("histogram")[0].appendChild(tdRefs);
+	//console.dir(histo);
+	document.body.appendChild(document.createElement("div").style.background = "rgba(255, 0, 0 rouge)");
+	//console.dir(tdRefs[0]);
+
+	noir = 1 - noir ;
+	rouge = 1 - rouge;
+
+	console.log("Noir : " + noir + " et Rouge : " + rouge);
+	//colorogram.style.background = "linear-gradient(white, yellow, orange, red, black)";
+	//colorogram.style.background = "linear-gradient(to bottom, rgba(0,0,0, " + noir + "), rgba(255,0,0," + rouge + "))";
+}
+
+function calculerTableau() {
+	t_max = 4;
+	//var leRatioNoir = 1;
+	//var leRatioRouge = 0;
+	t = 0;
+
+	for(var i = 0; i < MAX_RUNS; i++) {
+		site = 1;
+		t = 0;
+		while(t < t_max) {
+			t++; 
+			site = voisin[site][Math.round((Math.random() * 3))];
+		}
+
+		probabilityTable[site]++;
+		
+	}
+
+	jouerDeCaillou(1, 0);
 }
 
 var faireUneTableau = function() {
