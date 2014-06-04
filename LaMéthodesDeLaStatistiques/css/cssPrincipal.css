@@ -1,0 +1,82 @@
+/* CSS Principal */
+/*http://www.colorcombos.com/color-scheme-252.html*/
+body {
+	max-width: 1200px;
+	min-width: 500px;
+}
+
+#container {
+	width: 100%;
+	display: flex;
+	background-color: #000000;
+	/*background-color: #6699CC;*/
+}
+
+header {
+	text-align: center;
+	/*background-color: #9C9284;*/
+	background-color: #CCCC99;
+}
+
+div.nav {
+	width: 15%;
+	min-width: 150px;
+	margin: 5px 5px;
+}
+
+div.nav ul {
+	margin: 0;
+	padding: 0;
+	/*float: right;*/
+}
+
+div.nav ul li {
+	list-style: none;
+	/*background-color: #FF9900;*/
+	/*float: left;*/
+}
+
+div.nav ul li a {
+	display: block;
+	/*color: ;*/
+	text-decoration: none;
+	font-weight: bold;
+	padding: 5px;
+	border: solid 1px #333;
+	background-color: #FF9900;
+}
+
+div.nav ul li a:hover {
+	background: #222;
+}
+
+div.nav ul li a:active {
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.8) inset;
+	   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.8) inset;
+	        box-shadow: 0 0 5px rgba(0, 0, 0, 0.8) inset;
+}
+
+article {
+	/*display: inline;*/
+}
+
+div.journal {
+	width: 500px;
+	margin: 5px 5px;
+	/*padding: 0px 10px;*/
+	background-color: #E6E6CC;
+}
+
+article.main {
+	padding: 0px 10px;
+}
+
+h2 {
+	margin: 0px;
+	margin-bottom: 5px;
+	background-color: #CCCC99;
+}
+
+footer {
+	width: inherit;
+}
