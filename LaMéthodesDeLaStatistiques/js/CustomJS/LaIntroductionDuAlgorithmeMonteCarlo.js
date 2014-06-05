@@ -21,6 +21,7 @@ var voisin = [[1,3,0,0], [2,4,0,1], [2,5,1,2],
 //var colorogram = document.getElementById("colorGraphique");
 
 window.onload = function() {
+
 	var temp;
 	tableauProb = document.createElement("table");
 	tableauProb.id = "leResultat";
@@ -70,7 +71,7 @@ function jouerDeCaillou(noir, rouge) {
 		var rangée = document.createElement("tr");
 		var leCellue;
 
-		rangée.style.height = "26px";
+		
 
 		if(i == 10) {
 			leCellue = document.createElement("td");
@@ -80,6 +81,10 @@ function jouerDeCaillou(noir, rouge) {
 			rangée.appendChild(leCellue);
 		}
 		
+		if(i >= 8)
+			rangée.style.height = "27px";
+		else
+			rangée.style.height = "25px";
 		// //if(i = )
 		// leCellue = document.createElement("td");
 		// leCellue.style.width = "30px";
