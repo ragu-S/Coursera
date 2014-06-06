@@ -71,8 +71,6 @@ function jouerDeCaillou(noir, rouge) {
 		var rangée = document.createElement("tr");
 		var leCellue;
 
-		
-
 		if(i == 10) {
 			leCellue = document.createElement("td");
 			leCellue.style.background = "linear-gradient(white, yellow, orange, red, black)";
@@ -81,6 +79,7 @@ function jouerDeCaillou(noir, rouge) {
 			rangée.appendChild(leCellue);
 		}
 		
+		// adjuster la hauteur des cellues plus grande que ou égale à 8
 		if(i >= 8)
 			rangée.style.height = "27px";
 		else
