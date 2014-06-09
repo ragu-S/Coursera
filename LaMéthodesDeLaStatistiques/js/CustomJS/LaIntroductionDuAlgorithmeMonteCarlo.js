@@ -18,8 +18,6 @@ var voisin = [[1,3,0,0], [2,4,0,1], [2,5,1,2],
 			  [4,6,3,0], [5,7,3,1], [5,8,4,2],
 			  [7,6,6,3], [8,7,6,4], [8,8,7,5]];
 
-//var colorogram = document.getElementById("colorGraphique");
-
 window.onload = function() {
 
 	var temp;
@@ -29,14 +27,15 @@ window.onload = function() {
 
 	calculerTableau();
 	faireUneTableau();
-	
-	//console.dir(colorogram);
+
+	couleurTableu();
+
 	tableau.push(['Value', 'Hits']);
  	for(var i = 0; i < probabilityTable.length; i++)
  		tableau.push([String(i), probabilityTable[i]]);
 
-	drawChartLine();
-	drawChartBubble();
+	//drawChartLine();
+	//drawChartBubble();
 	//jouerDeCaillou();
 }
 
@@ -130,6 +129,38 @@ function calculerTableau() {
 	}
 
 	jouerDeCaillou(1, 0);
+}
+
+function couleurTableu() {
+	//var tableauTravailler = document.getElementById("histoTable");
+	var cellues = document.getElementsByClassName("nombre");
+	console.dir(cellues);
+	for(var i = 0; i < cellues.length; i++) {
+		if(cellues[i].innerHTML >= 0 && cellues[i].innerHTML < 9) {
+			console.log(cellues[i].innerHTML + " : " + probabilityTable[cellues[i].innerHTML]);
+
+
+		}
+	}
+
+}
+
+// noir: 00 00 00 0
+// rouge: FF 00 00 255
+// yellow: FF FF 00 
+// orange: FF 66 00
+// blanc: FF FF FF
+// white, yellow, orange, red, black
+
+function couleurRangee(siteProb) {
+	var couleur = 0;
+	if(siteProb >= 0.1) {
+		couleur = "red";
+	}
+	else if() {
+		couleur = "orange";
+	}
+	return couleur;
 }
 
 var faireUneTableau = function() {
