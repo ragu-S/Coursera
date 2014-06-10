@@ -2,9 +2,60 @@
 body {
 	/*display: inline-table;*/
 }
+
+table {
+	margin: 0px;
+	padding: 0px;
+}
+
+#leResultat {
+	margin: 0px;
+	/*height: 259px;
+	width: 200px;*/
+	/*padding: 0px;
+	float: right;*/
+	/*display: table;*/
+}
+
+#leResultat tr td{
+	width: 70px;
+}
+
+#histoColorRange {
+	margin: 0px;
+}
+
+#totalRuns {
+	margin: 2px;
+	margin-top: 7px;
+	width: auto;
+	height: 25px;
+	float: left;
+}
+#inputStats {
+	display: block;
+	padding: 5px;
+	margin: 5px;
+}
+/*#inTotal {
+	margin: 5px;
+	width: auto;
+	height: 25px;
+	float: left;
+}*/
+
+input {
+	margin: 5px;
+	width: auto;
+	height: 25px;
+	float: left;
+}
+
 div.histogram {
-	margin: 150px auto;
-	display: inline;
+	margin: 10px;
+	height: 300px;
+	/*width: 500px;*/
+	display: flex;
 }
 
 table.histoTable {

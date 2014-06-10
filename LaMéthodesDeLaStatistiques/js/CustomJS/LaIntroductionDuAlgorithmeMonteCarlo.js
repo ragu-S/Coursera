@@ -3,68 +3,52 @@
 // 	this.prototype[name] = func;
 // 	return this;
 // };
-
-var MAX_RUNS = 10;
-
+var MAX_RUNS = 8000;
 var probabilityTable = [];
 var tableau = [];
-
-for (var i = 0; i < 9; i++)
-	probabilityTable.push(0);
-
-var tableauProb;
 
 var voisin = [[1,3,0,0], [2,4,0,1], [2,5,1,2], 
 			  [4,6,3,0], [5,7,3,1], [5,8,4,2],
 			  [7,6,6,3], [8,7,6,4], [8,8,7,5]];
 
 window.onload = function() {
+	JeuDeCaillou();
+}
+
+function loadTables() {
 
 	var temp;
-	tableauProb = document.createElement("table");
-	tableauProb.id = "leResultat";
 	var randInt = 0;
+	var testRuns = document.getElementById("inTotal").value;
+	var commence = document.getElementById("siteCommence").value;
+	probabilityTable = [];
+	tableau = [];
+
+	for (var i = 0; i < 9; i++)
+		probabilityTable.push(0);
+
+	(testRuns.length == 0) && (testRuns = MAX_RUNS);
+	(commence.length == 0) && (commence = undefined);
+	MAX_RUNS = testRuns;
+	// loadTables();
 
 	calculerTableau();
 	faireUneTableau();
-
 	couleurTableu();
 
 	tableau.push(['Value', 'Hits']);
  	for(var i = 0; i < probabilityTable.length; i++)
  		tableau.push([String(i), probabilityTable[i]]);
 
-	//drawChartLine();
-	//drawChartBubble();
-	//jouerDeCaillou();
+	drawChartLine();
+	drawChartBubble();
 }
 
-// function calculer(nomEssais) {
-// 	var hits = 0;
-// 	var x = 0;
-// 	var y = 0;
-// 	for(var i = 0; i < nomEssais; i++) {
-// 		x = (Math.random() * 2) - 1;
-// 		y = (Math.random() * 2) - 1;
-		
-// 		if((Math.abs(Math.pow(x, 2) / Math.pow(y, 2))) < Math.PI) {
-// 			hits++;
-// 		}
-// 	}
-
-// 	return 4 * (hits/nomEssais);
-// }
-
-function jouerDeCaillou(noir, rouge) {
-	//var colorogram = document.getElementById("colorGraphique");
+function JeuDeCaillou() {
 	var histoTable = document.getElementsByClassName("nombre");
-	var tdRefs = document.createElement("table");
-	tdRefs.className = "histoColorRange";
-	console.log(histoTable.length);
-	
-	// for(var i = 0; i < histoTable.length; i++) {
-	// 	console.log(histoTable[i].innerHTML);
-	// }
+	var tdRefs = document.getElementById("histoColorRange");//document.createElement("table");
+	//tdRefs.className = "histoColorRange";
+	//console.log(histoTable.length);
 	
 	for(var i = 10; i > 0; i--) {
 		var rangée = document.createElement("tr");
@@ -80,15 +64,9 @@ function jouerDeCaillou(noir, rouge) {
 		
 		// adjuster la hauteur des cellues plus grande que ou égale à 8
 		if(i >= 8)
-			rangée.style.height = "27px";
+			rangée.style.height = "23px";
 		else
-			rangée.style.height = "25px";
-		// //if(i = )
-		// leCellue = document.createElement("td");
-		// leCellue.style.width = "30px";
-		// //leCellue.style.border = "1px solid black";
-		// leCellue.style.background = "linear-gradient(white, yellow)"
-		// //leCellue.style.height = "30px";
+			rangée.style.height = "24px";
 
 		leCellue = document.createElement("td");
 		leCellue.innerHTML = eval(i/10);
@@ -97,52 +75,35 @@ function jouerDeCaillou(noir, rouge) {
 		tdRefs.appendChild(rangée);
 	}
 
-	document.getElementsByClassName("histogram")[0].appendChild(tdRefs);
-	//console.dir(histo);
-	//
-	//console.dir(tdRefs[0]);
-
-	noir = 1 - noir ;
-	rouge = 1 - rouge;
-
-	console.log("Noir : " + noir + " et Rouge : " + rouge);
-	//colorogram.style.background = "linear-gradient(white, yellow, orange, red, black)";
-	//colorogram.style.background = "linear-gradient(to bottom, rgba(0,0,0, " + noir + "), rgba(255,0,0," + rouge + "))";
+	//document.getElementsByClassName("histogram")[0].appendChild(tdRefs);
+	
 }
 
-function calculerTableau() {
+function calculerTableau(commence) {
 	t_max = 4;
-	//var leRatioNoir = 1;
-	//var leRatioRouge = 0;
-	t = 0;
-
+	var site;
+	(commence === undefined) && (commence = 2);
 	for(var i = 0; i < MAX_RUNS; i++) {
-		site = 1;
+		site = commence;
 		t = 0;
 		while(t < t_max) {
 			t++; 
 			site = voisin[site][Math.round((Math.random() * 3))];
-		}
-
+		}	
 		probabilityTable[site]++;
-		
-	}
-
-	jouerDeCaillou(1, 0);
+	}	
 }
 
 function couleurTableu() {
-	//var tableauTravailler = document.getElementById("histoTable");
 	var cellues = document.getElementsByClassName("nombre");
-	console.dir(cellues);
+
 	for(var i = 0; i < cellues.length; i++) {
 		if(cellues[i].innerHTML >= 0 && cellues[i].innerHTML < 9) {
-			console.log(cellues[i].innerHTML + " : " + probabilityTable[cellues[i].innerHTML]);
-
-
+			//console.log(cellues[i].innerHTML + " : " + (probabilityTable[cellues[i].innerHTML]/MAX_RUNS)+ " : " + couleurRangee(probabilityTable[cellues[i].innerHTML]));//probabilityTable[cellues[i].innerHTML]);
+			(probabilityTable[cellues[i].innerHTML]/MAX_RUNS > 0.8) && (cellues[i].style.color = "black");
+			cellues[i].style.background = couleurRangee(probabilityTable[cellues[i].innerHTML]);
 		}
 	}
-
 }
 
 // noir: 00 00 00 0
@@ -153,75 +114,85 @@ function couleurTableu() {
 // white, yellow, orange, red, black
 
 function couleurRangee(siteProb) {
-	var couleur = 0;
-	if(siteProb >= 0.1) {
-		couleur = "red";
+	siteProb /= MAX_RUNS;
+	var couleur = { 
+		rouge:255, 
+		vert:255, 
+		bleu:255, 
+		sat:1,
+		rgbaSet: function(r, g, b, s) {
+			// for(var i = 0; i < this.arguments.length; i++) {
+			// 	(this.arguments[i] === undefined) && (this.arguments[i] = 0);
+			// }
+			this.rouge = r;
+			this.vert = g;
+			this.bleu = b;
+			this.sat = s;
+		},
+		rgbaString: function() { 
+			return "rgba(" + this.rouge + "," + this.vert + "," + this.bleu + "," + this.sat + ")";
+		}
+	};
+	// var rouge = 255;
+	// var vert = 255;
+	// var bleu = 255;
+	// 0 à 0.1 
+	if(siteProb >= 0 && siteProb <= 0.3){
+		//couleur = "rouge, leBrun et noir";
+		couleur.rgbaSet(Math.round(255*(siteProb/0.3)), 0, 0, 1);
 	}
-	else if() {
-		couleur = "orange";
+	else if(siteProb > 0.3 && siteProb <= 0.8) {
+		//couleur = "orange et rouge";
+		couleur.rgbaSet(255, Math.round(255*((siteProb-0.1)/0.8)), 0, 1);
 	}
-	return couleur;
+	else if(siteProb > 0.8 && siteProb <= 1) {
+		couleur.rgbaSet(255, 255, Math.round(255*((siteProb-0.1)/1)), 1);
+	}
+	else {
+		// ajouter une déclaration erreur
+		console.log("Erreur dans la fonction couleurRangee(): la probability que avait donner est : " + siteProb);
+	}
+
+	return couleur.rgbaString();
 }
 
+
+
 var faireUneTableau = function() {
-	for(var i in probabilityTable) {
-		var rangeeTableau = document.createElement("tr");
-		var laCellue = document.createElement("td");
-		laCellue.innerHTML = i;
-		rangeeTableau.appendChild(laCellue);
-		laCellue = document.createElement("td");
-		laCellue.innerHTML = probabilityTable[i];
-		rangeeTableau.appendChild(laCellue);
+	// document.getElementsByClassName("histogram")[0].style.height = "350px";
+	//var tableauProb = document.getElementById("leResultat");//
+	var resultats = document.getElementsByClassName("resultats");
+	var lePourCent = document.getElementsByClassName("lePourCent");
+	var lesTotals = [0, 0];
 
-		laCellue = document.createElement("td");
-		laCellue.innerHTML = Math.round(eval(probabilityTable[i]/MAX_RUNS)*100);//Math.round(eval(probabilityTable[i]/MAX_RUNS)*100) + "%";
-		rangeeTableau.appendChild(laCellue);
-
-		tableauProb.appendChild(rangeeTableau);
-	}
-
-	var rangeeTableau = document.createElement("tr");
-	var laCellue = document.createElement("td");
-
-	laCellue.innerHTML = "Le Total:";
-	rangeeTableau.appendChild(laCellue);
-
-	laCellue = document.createElement("td");
-	laCellue.innerHTML = 0
-	for(var i in probabilityTable)
-		laCellue.innerHTML = Number(laCellue.innerHTML) + Number(probabilityTable[i]);
+	//console.dir(resultats);
+	//console.dir(lePourCent);
 	
-	rangeeTableau.appendChild(laCellue);
-	// Sum la troiseme colonne ********************************************/
-	laCellue = document.createElement("td");
-	var lesCellues = tableauProb.getElementsByTagName("tr");
-
-	//console.log(lesCellues.length);
-	laCellue.innerHTML = 0
-	for(var i = 0; i < lesCellues.length; i++) {
-		laCellue.innerHTML = Number(laCellue.innerHTML) + Number(lesCellues[i].childNodes[2].innerHTML);
-		lesCellues[i].childNodes[2].innerHTML += "%";
-			//laCellue.innerHTML = Number(laCellue.innerHTML) + Number(lesCellues[i].childNodes[2].innerHTML.substr(0, lesCellues[i].childNodes[2].innerHTML.length - 1));
+	for(var i = 1; i < resultats.length-1; i++) {
+		resultats[i].innerHTML = probabilityTable[i-1];
+		lePourCent[i].innerHTML = Math.round(eval(probabilityTable[i-1]/MAX_RUNS)*100);
+		lesTotals[0] += probabilityTable[i-1];
+		lesTotals[1] += Number(lePourCent[i].innerHTML);
 	}
-	laCellue.innerHTML = laCellue.innerHTML + "%";
-
-	rangeeTableau.appendChild(laCellue);
-	tableauProb.className = "stats";
-	tableauProb.appendChild(rangeeTableau);
-	
-	document.getElementsByClassName("histogram")[0].appendChild(tableauProb);
+	resultats[resultats.length-1].innerHTML = lesTotals[0];
+	lePourCent[lePourCent.length-1].innerHTML = lesTotals[1];
 }
 
  function drawChartLine() {
     var data = google.visualization.arrayToDataTable(tableau);
 
     var options = {
-        title: 'Probability pour 3x3 Jouer Caillou'
+        title: 'Probability pour 3x3 Jeu Caillou'
     };
-    var gooChart = document.createElement("div");
+    var gooChart = document.getElementById("googleLine")
+    if(gooChart === null) {
+    	gooChart = document.createElement("div");
+    	gooChart.id = "googleLine";
+    	document.body.appendChild(gooChart);
+    }
+
     var chart = new google.visualization.LineChart(gooChart);
     chart.draw(data, options);
-    document.body.appendChild(gooChart);
 }
 
 function drawChartBubble() {
@@ -231,22 +202,28 @@ function drawChartBubble() {
  		bubbleTable.push(["", i, Number(tableau[i][1]), tableau[i][1], tableau[i][1]]); 
  	}
 
- 	console.dir(bubbleTable);
-
     var data = google.visualization.arrayToDataTable(bubbleTable);
 
     var options = {
-      title: 'Probability pour le 3x3 Jouer Caillou',
+      title: 'Probability pour le 3x3 Jeu Caillou',
       hAxis: {title: 'Total Hits'},
       vAxis: {title: 'Range'},
       bubble: {textStyle: {fontSize: 11}},
       colorAxis: {colors: ['red']}
     };
 
-    var gooChart = document.createElement("div");
+    var gooChart = document.getElementById("googleCircle");
+    
+    if(gooChart === null) {
+    	gooChart = document.createElement("div");
+    	gooChart.id = "googleCircle";
+    	document.body.appendChild(gooChart)
+    }
+
     var chart = new google.visualization.BubbleChart(gooChart);
     chart.draw(data, options);
-
-    document.body.appendChild(gooChart);
 }
 
+function testInput() {
+	
+}
