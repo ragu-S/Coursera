@@ -13,6 +13,7 @@ var voisin = [[1,3,0,0], [2,4,0,1], [2,5,1,2],
 
 window.onload = function() {
 	JeuDeCaillou();
+	testInput();
 }
 
 function loadTables() {
@@ -225,5 +226,9 @@ function drawChartBubble() {
 }
 
 function testInput() {
+	var matrixTable = document.getElementById("baseMatrix");
+	console.dir(matrixTable);
+	console.log(Object.prototype.toString.call(matrixTable));
+	
 	
 }

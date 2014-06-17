@@ -8,6 +8,16 @@ table {
 	padding: 0px;
 }
 
+#page {
+	position: relative; 
+	margin: 0px auto 0px auto; 
+	max-width: 980px; }
+}
+
+#page_content {
+	/*display: flex;*/
+}
+
 #leResultat {
 	margin: 0px;
 	/*height: 259px;
@@ -32,10 +42,29 @@ table {
 	height: 25px;
 	float: left;
 }
+
 #inputStats {
 	display: block;
 	padding: 5px;
 	margin: 5px;
+}
+
+#page header a.logo {
+	/*position: absolute;
+	top: 45px;
+	left: 45px;
+	display: block;
+	width: 180px;
+	height: 105px;
+	background: url(../images/logo_large.png) no-repeat 0px 0px;*/
+}
+
+#page header {
+	display: block;
+	width: 100%;
+	height: 85px;
+	padding: 10px;
+	
 }
 /*#inTotal {
 	margin: 5px;

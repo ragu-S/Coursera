@@ -3,6 +3,7 @@
 body {
 	max-width: 1200px;
 	min-width: 500px;
+	display: flex;
 }
 
 #container {
